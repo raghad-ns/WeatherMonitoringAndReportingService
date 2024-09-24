@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherMonitoringAndReportingService.Bots;
+using WeatherMonitoringAndReportingService.Config;
+using WeatherMonitoringAndReportingService.WeatherDetails;
 
 namespace WeatherMonitoringAndReportingService.WeatherStation
 {
@@ -14,7 +16,7 @@ namespace WeatherMonitoringAndReportingService.WeatherStation
         public void Attach(IBot bot) => _bots.Add(bot);
         public void Detach(IBot bot) => _bots.Remove(bot);
 
-        public void Notify(string state)
+        public void Notify(WeatherDetailsModel state)
         {
             foreach (IBot bot in _bots)
             {

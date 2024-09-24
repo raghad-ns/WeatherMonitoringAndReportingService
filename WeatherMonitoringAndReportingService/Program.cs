@@ -1,12 +1,18 @@
 ﻿using System.Text;
+using WeatherMonitoringAndReportingService.Bots;
+using WeatherMonitoringAndReportingService.Config;
+using WeatherMonitoringAndReportingService.DataSourceProcessor;
 using WeatherMonitoringAndReportingService.InputConversion;
 
 namespace WeatherMonitoringAndReportingService
 {
-    internal class Program
+    public class Program
     {
+        private static WeatherStation.WeatherStation _weatherStation = new();
         static void Main(string[] args)
         {
+            InitializeApp();
+
             Console.WriteLine("Enter weather status (type 'STOP' to finish):");
 
             StringBuilder userInput = new StringBuilder();
@@ -18,7 +24,18 @@ namespace WeatherMonitoringAndReportingService
                 userInput.AppendLine(line);
             }
 
-            Console.WriteLine(JSONToWeatherDetailsAdapter.ToWeatherDetailsAdapter(userInput.ToString()).Location);
+            _weatherStation.Notify(JSONToWeatherDetailsAdapter.ToWeatherDetailsAdapter(userInput.ToString()));
+        }
+
+        public static void InitializeApp()
+        {
+            WeatherConfigurationService weatherConfigurationService = new(
+                new WeatherConfigurationRepository(
+                    new JSONFileProcessor()));
+
+            _weatherStation.Attach(new RainBot(weatherConfigurationService));
+            _weatherStation.Attach(new SnowBot(weatherConfigurationService));
+            _weatherStation.Attach(new SunBot(weatherConfigurationService));
         }
     }
 }
