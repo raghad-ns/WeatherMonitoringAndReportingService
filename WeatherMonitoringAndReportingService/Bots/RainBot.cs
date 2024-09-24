@@ -22,6 +22,7 @@ public class RainBot:IBot
 
             Console.WriteLine("RainBot activated!");
             Console.WriteLine($"RainBot: {rainConfig.Message}");
+
         } 
         else rainConfig.Enabled = false;
 
