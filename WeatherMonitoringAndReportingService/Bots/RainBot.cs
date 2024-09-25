@@ -19,7 +19,6 @@ public class RainBot:IBot
         if (state.Humidity > rainConfig.HumidityThreshold)
         {
             rainConfig.Enabled = true;
-
             Console.WriteLine("RainBot activated!");
             Console.WriteLine($"RainBot: {rainConfig.Message}");
 

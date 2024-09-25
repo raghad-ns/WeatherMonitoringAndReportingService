@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeatherMonitoringAndReportingService.Config;
+﻿using WeatherMonitoringAndReportingService.Config;
 using WeatherMonitoringAndReportingService.WeatherDetails;
 
 namespace WeatherMonitoringAndReportingService.Bots;
@@ -24,7 +19,6 @@ public class SnowBot: IBot
         if (state.Temperature < snowConfig.TemperatureThreshold)
         {
             snowConfig.Enabled = true;
-
             Console.WriteLine("SnowBot activated!");
             Console.WriteLine($"SnowBot: {snowConfig.Message}");
         }

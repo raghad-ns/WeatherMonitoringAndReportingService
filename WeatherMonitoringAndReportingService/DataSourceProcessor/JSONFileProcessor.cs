@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using WeatherMonitoringAndReportingService.AppSettings;
 using WeatherMonitoringAndReportingService.Config;
 
@@ -54,7 +49,6 @@ public class JSONFileProcessor : IDataSourceProcessor
 
     public void Update(string name, WeatherConfigurationModel data, string? path)
     {
-
         path ??= AppSettingsInitializer.AppSettingsInstance().ConfigFilePath;
 
         // 1. Read file
