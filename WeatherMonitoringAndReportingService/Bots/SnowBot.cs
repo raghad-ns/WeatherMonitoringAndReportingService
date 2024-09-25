@@ -5,25 +5,26 @@ namespace WeatherMonitoringAndReportingService.Bots;
 
 public class SnowBot: IBot
 {
-    private WeatherConfigurationService _weatherConfigurationService;
+    private readonly IWeatherConfigurationService _weatherConfigurationService;
 
-    public SnowBot(WeatherConfigurationService weatherConfigurationService)
+    public SnowBot(IWeatherConfigurationService weatherConfigurationService)
     {
         _weatherConfigurationService = weatherConfigurationService;
     }
 
     public void UpdateConfiguration(WeatherDetailsModel state)
     {
-        var snowConfig = _weatherConfigurationService.GetBotConfiguration("SnowBot");
+        const string BotName = "SnowBot";
+        var snowConfig = _weatherConfigurationService.GetBotConfiguration(BotName);
 
         if (state.Temperature < snowConfig.TemperatureThreshold)
         {
             snowConfig.Enabled = true;
-            Console.WriteLine("SnowBot activated!");
-            Console.WriteLine($"SnowBot: {snowConfig.Message}");
+            Console.WriteLine($"{BotName} :  activated!");
+            Console.WriteLine($"{BotName}: {snowConfig.Message}");
         }
         else snowConfig.Enabled = false;
 
-        _weatherConfigurationService.UpdateBotConfiguration("SnowBot", snowConfig);
+        _weatherConfigurationService.UpdateBotConfiguration(BotName, snowConfig);
     }
 }

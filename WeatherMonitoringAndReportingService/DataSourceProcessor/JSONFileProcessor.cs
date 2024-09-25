@@ -6,7 +6,9 @@ namespace WeatherMonitoringAndReportingService.DataSourceProcessor;
 
 public class JSONFileProcessor : IDataSourceProcessor
 {
-    public void Add(string name, WeatherConfigurationModel data, string path)
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
+
+    public void Add(string name, WeatherConfigurationModel data, string? path)
     {
         path ??= AppSettingsInitializer.AppSettingsInstance().ConfigFilePath;
 
@@ -28,7 +30,7 @@ public class JSONFileProcessor : IDataSourceProcessor
         string jsonString = File.ReadAllText(path ?? AppSettingsInitializer.AppSettingsInstance().ConfigFilePath);
         var botsSettings = JsonSerializer.Deserialize<Dictionary<string, WeatherConfigurationModel>>(jsonString);
 
-        return botsSettings;
+        return botsSettings!;
     }
 
     public void Remove(string name, string? path)
@@ -66,7 +68,7 @@ public class JSONFileProcessor : IDataSourceProcessor
 
     private string Serialize(Dictionary<string, WeatherConfigurationModel> data)
     {
-        return JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+        return JsonSerializer.Serialize(data, _jsonSerializerOptions);
     }
 
     private void WriteFile(string data, string path)

@@ -1,8 +1,8 @@
 ﻿namespace WeatherMonitoringAndReportingService.Config;
 
-public class WeatherConfigurationService
+public class WeatherConfigurationService: IWeatherConfigurationService
 {
-    private WeatherConfigurationRepository _weatherConfigurationRepository;
+    private readonly WeatherConfigurationRepository _weatherConfigurationRepository;
 
     public WeatherConfigurationService(WeatherConfigurationRepository weatherConfigurationRepository)
     {
@@ -13,13 +13,11 @@ public class WeatherConfigurationService
         _weatherConfigurationRepository.AddBotConfiguration(botConfigurationName, botConfigurationValue);
 
     public void RemoveBotConfiguration(string name) =>
-        _weatherConfigurationRepository?.RemoveBotConfiguration(name);
+        _weatherConfigurationRepository.RemoveBotConfiguration(name);
 
     public void UpdateBotConfiguration(string configurationName, WeatherConfigurationModel configurationValue) =>
         _weatherConfigurationRepository.UpdateBotConfiguration(configurationName, configurationValue);
 
-    public WeatherConfigurationModel GetBotConfiguration(string name)
-    {
-        return _weatherConfigurationRepository.GetBotConfiguration(name);
-    }
+    public WeatherConfigurationModel GetBotConfiguration(string name) => 
+        _weatherConfigurationRepository.GetBotConfiguration(name);
 }

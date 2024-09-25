@@ -5,7 +5,7 @@ namespace WeatherMonitoringAndReportingService.WeatherStation
 {
     public class WeatherStation : IWeatherStationSubject
     {
-        private List<IBot> _bots = new();
+        private List<IBot> _bots = [];
         public void Attach(IBot bot) => _bots.Add(bot);
         public void Detach(IBot bot) => _bots.Remove(bot);
 

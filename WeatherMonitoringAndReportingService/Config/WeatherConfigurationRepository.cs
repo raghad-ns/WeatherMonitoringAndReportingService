@@ -3,11 +3,11 @@ using WeatherMonitoringAndReportingService.DataSourceProcessor;
 
 namespace WeatherMonitoringAndReportingService.Config;
 
-public class WeatherConfigurationRepository
+public class WeatherConfigurationRepository: IWeatherConfigurationRepository
 {
-    private IDataSourceProcessor _dataSourceProcessor;
-    private Dictionary<string, WeatherConfigurationModel> _weatherConfigurations;
-    private string _configFilePath = AppSettingsInitializer.AppSettingsInstance().ConfigFilePath;
+    private readonly IDataSourceProcessor _dataSourceProcessor;
+    private readonly Dictionary<string, WeatherConfigurationModel> _weatherConfigurations;
+    private readonly string _configFilePath = AppSettingsInitializer.AppSettingsInstance().ConfigFilePath;
 
     public WeatherConfigurationRepository(IDataSourceProcessor dataSourceProcessor) {
         _dataSourceProcessor = dataSourceProcessor;

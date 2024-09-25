@@ -5,25 +5,26 @@ namespace WeatherMonitoringAndReportingService.Bots;
 
 public class SunBot: IBot
 {
-    private WeatherConfigurationService _weatherConfigurationService;
+    private readonly IWeatherConfigurationService _weatherConfigurationService;
 
-    public SunBot(WeatherConfigurationService weatherConfigurationService)
+    public SunBot(IWeatherConfigurationService weatherConfigurationService)
     {
         _weatherConfigurationService = weatherConfigurationService;
     }
 
     public void UpdateConfiguration(WeatherDetailsModel state)
     {
-        var sunConfig = _weatherConfigurationService.GetBotConfiguration("SunBot");
+        const string BotName = "SunBot";
+        var sunConfig = _weatherConfigurationService.GetBotConfiguration(BotName);
 
         if (state.Temperature > sunConfig.TemperatureThreshold)
         {
             sunConfig.Enabled = true;
-            Console.WriteLine("SunBot activated!");
-            Console.WriteLine($"SunBot: {sunConfig.Message}");
+            Console.WriteLine($"{BotName} :  activated!");
+            Console.WriteLine($"{BotName}: {sunConfig.Message}");
         }
         else sunConfig.Enabled = false;
 
-        _weatherConfigurationService.UpdateBotConfiguration("SunBot", sunConfig);
+        _weatherConfigurationService.UpdateBotConfiguration(BotName, sunConfig);
     }
 }
