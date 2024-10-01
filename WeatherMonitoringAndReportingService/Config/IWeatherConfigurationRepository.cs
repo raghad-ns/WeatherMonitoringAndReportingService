@@ -2,8 +2,8 @@
 
 public interface IWeatherConfigurationRepository
 {
-    public void AddBotConfiguration(string botConfigurationName, WeatherConfigurationModel botConfigurationValue);
-    public void RemoveBotConfiguration(string name);
-    public void UpdateBotConfiguration(string configurationName, WeatherConfigurationModel configurationValue);
-    public WeatherConfigurationModel GetBotConfiguration(string name);
+    void AddBotConfiguration(string botConfigurationName, WeatherConfigurationModel botConfigurationValue);
+    void RemoveBotConfiguration(string name);
+    void UpdateBotConfiguration(string configurationName, WeatherConfigurationModel configurationValue);
+    WeatherConfigurationModel GetBotConfiguration(string name);
 }

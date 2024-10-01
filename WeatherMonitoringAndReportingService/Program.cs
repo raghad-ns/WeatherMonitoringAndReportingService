@@ -28,22 +28,21 @@ public class Program
             userInput.AppendLine(line);
         }
 
-        WeatherDetailsModel weatherDetails = new();
+        WeatherDetailsModel weatherDetails;
 
         switch (choice)
         {
             case 1:
-                weatherDetails = JSONToWeatherDetailsAdapter.ToWeatherDetailsAdapter(userInput.ToString());
+                _weatherStation.Notify(JSONToWeatherDetailsAdapter.ToWeatherDetailsAdapter(userInput.ToString()));
                 break;
             case 2:
-                weatherDetails = XMLToWeatherDetailsAdapter.ToWeatherDetailsAdapter(userInput.ToString());
+                _weatherStation.Notify(XMLToWeatherDetailsAdapter.ToWeatherDetailsAdapter(userInput.ToString()));
                 break;
             default:
                 Console.WriteLine("Invalid choice!");
                 break;
         }
 
-        _weatherStation.Notify(weatherDetails);
     }
 
     public static void InitializeApp()

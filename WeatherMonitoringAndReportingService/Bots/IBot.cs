@@ -4,5 +4,5 @@ namespace WeatherMonitoringAndReportingService.Bots;
 
 public interface IBot
 {
-    public void UpdateConfiguration(WeatherDetailsModel state);
+    void UpdateConfiguration(WeatherDetailsModel state);
 }

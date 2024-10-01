@@ -2,9 +2,9 @@
 
 public class WeatherConfigurationService: IWeatherConfigurationService
 {
-    private readonly WeatherConfigurationRepository _weatherConfigurationRepository;
+    private readonly IWeatherConfigurationRepository _weatherConfigurationRepository;
 
-    public WeatherConfigurationService(WeatherConfigurationRepository weatherConfigurationRepository)
+    public WeatherConfigurationService(IWeatherConfigurationRepository weatherConfigurationRepository)
     {
         _weatherConfigurationRepository = weatherConfigurationRepository;
     }
