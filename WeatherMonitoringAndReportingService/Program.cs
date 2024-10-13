@@ -2,6 +2,9 @@
 using WeatherMonitoringAndReportingService.Bots;
 using WeatherMonitoringAndReportingService.Config;
 using WeatherMonitoringAndReportingService.DataSourceProcessor;
+using WeatherMonitoringAndReportingService.DataSourceProcessor.Readers;
+using WeatherMonitoringAndReportingService.DataSourceProcessor.Serializers;
+using WeatherMonitoringAndReportingService.DataSourceProcessor.Writers;
 using WeatherMonitoringAndReportingService.InputConversion;
 using WeatherMonitoringAndReportingService.WeatherDetails;
 
@@ -49,7 +52,8 @@ public class Program
     {
         WeatherConfigurationService weatherConfigurationService = new(
             new WeatherConfigurationRepository(
-                new JSONFileProcessor()));
+                new JSONFileProcessor(new FileWriter(), new FileSerializer(), new FileReader()),
+                new FileReader()));
 
         var bots = new List<IBot>
         {

@@ -1,17 +1,20 @@
 ﻿using WeatherMonitoringAndReportingService.AppSettings;
 using WeatherMonitoringAndReportingService.DataSourceProcessor;
+using WeatherMonitoringAndReportingService.DataSourceProcessor.Readers;
 
 namespace WeatherMonitoringAndReportingService.Config;
 
 public class WeatherConfigurationRepository: IWeatherConfigurationRepository
 {
     private readonly IDataSourceProcessor _dataSourceProcessor;
+    private readonly IFileReader _reader;
     private readonly Dictionary<string, WeatherConfigurationModel> _weatherConfigurations;
     private readonly string _configFilePath = AppSettingsInitializer.AppSettingsInstance().ConfigFilePath;
 
-    public WeatherConfigurationRepository(IDataSourceProcessor dataSourceProcessor) {
+    public WeatherConfigurationRepository(IDataSourceProcessor dataSourceProcessor, IFileReader reader) {
         _dataSourceProcessor = dataSourceProcessor;
-        _weatherConfigurations = _dataSourceProcessor.ReadFile(_configFilePath);
+        _weatherConfigurations = _reader.ReadFile(_configFilePath);
+        _reader = reader;
     }
 
     public void AddBotConfiguration(string name, WeatherConfigurationModel configuration)

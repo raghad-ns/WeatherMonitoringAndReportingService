@@ -2,7 +2,7 @@
 
 namespace WeatherMonitoringAndReportingService.AppSettings;
 
-internal class AppSettingsInitializer
+public class AppSettingsInitializer
 {
     private static AppSettingsModel? _appSettings;
 
