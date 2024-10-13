@@ -9,7 +9,7 @@ namespace WeatherMonitoringAndReportingService;
 
 public class Program
 {
-    private static WeatherStation.WeatherStation _weatherStation = new();
+    private static WeatherStation.WeatherStation _weatherStation;
     static void Main(string[] args)
     {
         InitializeApp();
@@ -51,8 +51,13 @@ public class Program
             new WeatherConfigurationRepository(
                 new JSONFileProcessor()));
 
-        _weatherStation.Attach(new RainBot(weatherConfigurationService));
-        _weatherStation.Attach(new SnowBot(weatherConfigurationService));
-        _weatherStation.Attach(new SunBot(weatherConfigurationService));
+        var bots = new List<IBot>
+        {
+            new RainBot(weatherConfigurationService),
+            new SnowBot(weatherConfigurationService),
+            new SunBot(weatherConfigurationService)
+        };
+
+        _weatherStation = new(bots);
     }
 }

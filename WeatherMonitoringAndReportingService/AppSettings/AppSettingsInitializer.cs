@@ -8,7 +8,7 @@ internal class AppSettingsInitializer
 
     private AppSettingsInitializer()
     {
-        string appSettingsJson = File.ReadAllText("../../../AppSettings/appsettings.json");
+        string appSettingsJson = File.ReadAllText("../../../../WeatherMonitoringAndReportingService/AppSettings/appsettings.json");
         _appSettings = JsonSerializer.Deserialize<AppSettingsModel>(appSettingsJson);
     }
 
