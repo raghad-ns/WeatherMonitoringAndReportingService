@@ -13,8 +13,8 @@ public class WeatherConfigurationRepository: IWeatherConfigurationRepository
 
     public WeatherConfigurationRepository(IDataSourceProcessor dataSourceProcessor, IFileReader reader) {
         _dataSourceProcessor = dataSourceProcessor;
-        _weatherConfigurations = _reader.ReadFile(_configFilePath);
         _reader = reader;
+        _weatherConfigurations = _reader.ReadFile(_configFilePath);
     }
 
     public void AddBotConfiguration(string name, WeatherConfigurationModel configuration)

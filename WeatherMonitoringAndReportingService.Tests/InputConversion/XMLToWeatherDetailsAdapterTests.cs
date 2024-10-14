@@ -17,22 +17,31 @@ public class XMLToWeatherDetailsAdapterTests
     [Fact]
     public void ToWeatherDetailsAdapter_ShouldReturnWeatherDetailsModel()
     {
+        string city = "City";
+        double temperature = 25.0;
+        double humidity = 70.0;
         // Arrange
-        var xmlInput = @"<WeatherData>
-                            <Location>City Name</Location>
-                            <Temperature>23.0</Temperature>
-                            <Humidity>85.0</Humidity>
+        var xmlInput = @$"<WeatherData>
+                            <Location>{city}</Location>
+                            <Temperature>{temperature}</Temperature>
+                            <Humidity>{humidity}</Humidity>
                         </WeatherData>";
+        var expectedWeatherDetails = new WeatherDetailsModel
+        {
+            Location = city,
+            Temperature = temperature,
+            Humidity = humidity
+        };
 
         // Act
         var weatherDetailsMode = XMLToWeatherDetailsAdapter.ToWeatherDetailsAdapter(xmlInput);
 
         // Assert
-        weatherDetailsMode.Should().BeOfType<WeatherDetailsModel>();
+        weatherDetailsMode.Should().BeEquivalentTo(expectedWeatherDetails);
     }
 
     [Fact]
-    public void ToWeatherDetailsAdapter_Fail_ThrowException_WhenInputIsInvalidXML()
+    public void ToWeatherDetailsAdapter_InvalidXMLInput_ShouldThrowInvalidOperationException()
     {
         // Arrange
 

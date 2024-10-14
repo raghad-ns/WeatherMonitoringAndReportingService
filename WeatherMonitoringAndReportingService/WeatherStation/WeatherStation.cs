@@ -10,7 +10,9 @@ namespace WeatherMonitoringAndReportingService.WeatherStation
         public WeatherStation(List<IBot> bots) { 
             _bots = bots;
         }
+
         public void Attach(IBot bot) => _bots.Add(bot);
+
         public void Detach(IBot bot) => _bots.Remove(bot);
 
         public void Notify(WeatherDetailsModel state)
