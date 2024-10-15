@@ -2,6 +2,9 @@
 using WeatherMonitoringAndReportingService.Bots;
 using WeatherMonitoringAndReportingService.Config;
 using WeatherMonitoringAndReportingService.DataSourceProcessor;
+using WeatherMonitoringAndReportingService.DataSourceProcessor.Readers;
+using WeatherMonitoringAndReportingService.DataSourceProcessor.Serializers;
+using WeatherMonitoringAndReportingService.DataSourceProcessor.Writers;
 using WeatherMonitoringAndReportingService.InputConversion;
 using WeatherMonitoringAndReportingService.WeatherDetails;
 
@@ -9,7 +12,7 @@ namespace WeatherMonitoringAndReportingService;
 
 public class Program
 {
-    private static WeatherStation.WeatherStation _weatherStation = new();
+    private static WeatherStation.WeatherStation _weatherStation;
     static void Main(string[] args)
     {
         InitializeApp();
@@ -49,10 +52,16 @@ public class Program
     {
         WeatherConfigurationService weatherConfigurationService = new(
             new WeatherConfigurationRepository(
-                new JSONFileProcessor()));
+                new JSONFileProcessor(new FileWriter(), new FileSerializer(), new FileReader()),
+                new FileReader()));
 
-        _weatherStation.Attach(new RainBot(weatherConfigurationService));
-        _weatherStation.Attach(new SnowBot(weatherConfigurationService));
-        _weatherStation.Attach(new SunBot(weatherConfigurationService));
+        var bots = new List<IBot>
+        {
+            new RainBot(weatherConfigurationService),
+            new SnowBot(weatherConfigurationService),
+            new SunBot(weatherConfigurationService)
+        };
+
+        _weatherStation = new(bots);
     }
 }

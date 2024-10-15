@@ -2,13 +2,13 @@
 
 namespace WeatherMonitoringAndReportingService.AppSettings;
 
-internal class AppSettingsInitializer
+public class AppSettingsInitializer
 {
     private static AppSettingsModel? _appSettings;
 
     private AppSettingsInitializer()
     {
-        string appSettingsJson = File.ReadAllText("../../../AppSettings/appsettings.json");
+        string appSettingsJson = File.ReadAllText("../../../../WeatherMonitoringAndReportingService/AppSettings/appsettings.json");
         _appSettings = JsonSerializer.Deserialize<AppSettingsModel>(appSettingsJson);
     }
 
